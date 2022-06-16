@@ -1,7 +1,8 @@
-package ru.profitsw2000.stopwatch
+package ru.profitsw2000.stopwatch.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import ru.profitsw2000.stopwatch.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
