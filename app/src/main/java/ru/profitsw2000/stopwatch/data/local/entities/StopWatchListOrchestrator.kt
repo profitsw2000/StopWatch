@@ -1,6 +1,7 @@
 package ru.profitsw2000.stopwatch.data.local.entities
 
 import kotlinx.coroutines.*
+import kotlinx.coroutines.NonCancellable.isActive
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
@@ -43,7 +44,7 @@ class StopWatchListOrchestrator(
     }
 
     private fun clearValue() {
-        mutableTicker.value = ""
+        mutableTicker.value = "00:00:000"
     }
 
 }

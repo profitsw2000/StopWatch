@@ -1,11 +1,12 @@
 package ru.profitsw2000.stopwatch.ui
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import ru.profitsw2000.stopwatch.data.RepositoryImpl
 
 
-class MainViewModel(private val repository: RepositoryImpl) {
+class MainViewModel(private val repository: RepositoryImpl) : ViewModel() {
 
     val liveData: LiveData<String> = repository.stopWatchListOrchestrator.ticker.asLiveData()
 
