@@ -3,6 +3,7 @@ package ru.profitsw2000.stopwatch.ui
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import ru.profitsw2000.stopwatch.R
 import ru.profitsw2000.stopwatch.data.RepositoryImpl
 import ru.profitsw2000.stopwatch.data.TimestampProviderImpl
 import ru.profitsw2000.stopwatch.data.local.DataSourceLocal
@@ -36,6 +37,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun renderData(it: String?) {
-        binding.timeTextView.text = it
+        if (!it.equals("")) {
+            binding.timeTextView.text = it
+        } else {
+            binding.timeTextView.text = getString(R.string.start_time_text)
+        }
     }
 }

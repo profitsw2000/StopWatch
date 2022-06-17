@@ -1,7 +1,6 @@
 package ru.profitsw2000.stopwatch.data.local.entities
 
 import kotlinx.coroutines.*
-import kotlinx.coroutines.NonCancellable.isActive
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 

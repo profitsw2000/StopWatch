@@ -22,5 +22,4 @@ class RepositoryImpl(dataSourceLocal: DataSourceLocal) : Repository {
     private val coroutineScope = CoroutineScope(Dispatchers.Main + SupervisorJob())
 
     override val stopWatchListOrchestrator: StopWatchListOrchestrator = StopWatchListOrchestrator(stopWatchStateHolder, coroutineScope)
-
 }
