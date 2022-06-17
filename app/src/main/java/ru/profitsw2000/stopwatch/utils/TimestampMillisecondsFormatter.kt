@@ -1,6 +1,6 @@
 package ru.profitsw2000.stopwatch.utils
 
-class TimestampMillisecondsFormatter() {
+class TimestampMillisecondsFormatter {
     fun format(timestamp: Long): String {
         val millisecondsFormatted = (timestamp % 1000).pad(3)
         val seconds = timestamp / 1000
