@@ -23,6 +23,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         viewModel.liveData.observe(this@MainActivity) { renderData(it)}
 
+        initButtons()
+    }
+
+    private fun initButtons() {
         binding.startButton.setOnClickListener {
             viewModel.start()
         }
@@ -32,6 +36,18 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.stopButton.setOnClickListener {
+            viewModel.stop()
+        }
+
+        binding.startButton2.setOnClickListener {
+            viewModel.start()
+        }
+
+        binding.pauseButton2.setOnClickListener {
+            viewModel.pause()
+        }
+
+        binding.stopButton2.setOnClickListener {
             viewModel.stop()
         }
     }
