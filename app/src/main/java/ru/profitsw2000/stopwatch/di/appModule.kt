@@ -12,14 +12,14 @@ import ru.profitsw2000.stopwatch.ui.MainViewModel
 import ru.profitsw2000.stopwatch.utils.TimestampMillisecondsFormatter
 
 val webModule = module {
-    single<TimestampProviderImpl>(named("timestampProvider")) { TimestampProviderImpl() }
-    single<DataSourceLocal>(named("dataSourceLocal")) { DataSourceLocal(get(named("timestampProvider"))) }
-    single<ElapsedTimeCalculator>(named("elapsedTimeCalculator")) { ElapsedTimeCalculator(get(named("timestampProvider"))) }
-    single<TimestampMillisecondsFormatter>(named("timestampMillisecondsFormatter")) { TimestampMillisecondsFormatter() }
-    single<StopWatchStateCalculator>(named("stopWatchStateCalculator")) { StopWatchStateCalculator(get(named("timestampProvider")), get(named("elapsedTimeCalculator"))) }
-    single<RepositoryImpl>(named("repository")) { RepositoryImpl(get(named("dataSourceLocal"))) }
+    single(named("timestampProvider")) { TimestampProviderImpl() }
+    single(named("dataSourceLocal")) { DataSourceLocal() }
+    single(named("elapsedTimeCalculator")) { ElapsedTimeCalculator(get(named("timestampProvider"))) }
+    single(named("timestampMillisecondsFormatter")) { TimestampMillisecondsFormatter() }
+    single(named("stopWatchStateCalculator")) { StopWatchStateCalculator(get(named("timestampProvider")), get(named("elapsedTimeCalculator"))) }
+    single(named("repository")) { RepositoryImpl(get(named("dataSourceLocal"))) }
 
-    factory<StopWatchStateHolder>(named("stopWatchStateHolder")) { StopWatchStateHolder(
+    factory(named("stopWatchStateHolder")) { StopWatchStateHolder(
                                 get(named("stopWatchStateCalculator")),
                                 get(named("elapsedTimeCalculator")),
                                 get(named("timestampMillisecondsFormatter"))) }

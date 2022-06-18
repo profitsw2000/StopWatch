@@ -2,7 +2,6 @@ package ru.profitsw2000.stopwatch.data.local.entities
 
 import ru.profitsw2000.stopwatch.data.StopWatchState
 import ru.profitsw2000.stopwatch.data.TimestampProviderImpl
-import ru.profitsw2000.stopwatch.data.local.DataSourceLocal
 
 class ElapsedTimeCalculator (
     private val timestampProviderImpl: TimestampProviderImpl

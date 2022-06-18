@@ -1,26 +1,14 @@
 package ru.profitsw2000.stopwatch.data.local
-import ru.profitsw2000.stopwatch.data.TimestampProviderImpl
-import ru.profitsw2000.stopwatch.data.local.entities.ElapsedTimeCalculator
-import ru.profitsw2000.stopwatch.data.local.entities.StopWatchStateCalculator
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
+import org.koin.core.qualifier.named
 import ru.profitsw2000.stopwatch.data.local.entities.StopWatchStateHolder
 import ru.profitsw2000.stopwatch.domain.DataSource
-import ru.profitsw2000.stopwatch.utils.TimestampMillisecondsFormatter
 
-class DataSourceLocal(timestampProviderImpl: TimestampProviderImpl): DataSource {
+class DataSourceLocal: DataSource, KoinComponent {
 
-    private val elapsedTimeCalculator = ElapsedTimeCalculator(timestampProviderImpl)
-    private val timestampMillisecondsFormatter = TimestampMillisecondsFormatter()
-    private val stopWatchStateCalculator = StopWatchStateCalculator(timestampProviderImpl, elapsedTimeCalculator)
-
-    private val stopWatchStateHolder1 = StopWatchStateHolder(
-        stopWatchStateCalculator,
-        elapsedTimeCalculator,
-        timestampMillisecondsFormatter)
-
-    private val stopWatchStateHolder2 = StopWatchStateHolder(
-        stopWatchStateCalculator,
-        elapsedTimeCalculator,
-        timestampMillisecondsFormatter)
+    private val stopWatchStateHolder1: StopWatchStateHolder by inject(named("stopWatchStateHolder"))
+    private val stopWatchStateHolder2: StopWatchStateHolder by inject(named("stopWatchStateHolder"))
 
     override val stopWatchStateHolderList: List<StopWatchStateHolder> =
         arrayListOf(stopWatchStateHolder1, stopWatchStateHolder2)

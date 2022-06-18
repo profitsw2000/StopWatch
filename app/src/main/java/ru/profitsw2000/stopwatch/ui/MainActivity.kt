@@ -1,23 +1,16 @@
 package ru.profitsw2000.stopwatch.ui
 
 import android.os.Bundle
-import android.view.View
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import ru.profitsw2000.stopwatch.R
-import ru.profitsw2000.stopwatch.data.RepositoryImpl
-import ru.profitsw2000.stopwatch.data.StopWatchState
-import ru.profitsw2000.stopwatch.data.TimestampProviderImpl
-import ru.profitsw2000.stopwatch.data.local.DataSourceLocal
 import ru.profitsw2000.stopwatch.databinding.ActivityMainBinding
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private val repositoryImpl = RepositoryImpl(DataSourceLocal(TimestampProviderImpl()))
-
-    private val viewModel: MainViewModel by viewModels { ViewModelFactory(repositoryImpl) }
+    private val viewModel: MainViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
