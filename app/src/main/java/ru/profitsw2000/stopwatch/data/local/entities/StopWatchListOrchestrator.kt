@@ -5,45 +5,43 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
 class StopWatchListOrchestrator(
-    private val stopWatchStateHolder: StopWatchStateHolder,
+    private val stopWatchStateHolderList: List<StopWatchStateHolder>,
     private val scope: CoroutineScope,
 ) {
-    private var job: Job? = null
-    private val mutableTicker = MutableStateFlow("")
-    val ticker: StateFlow<String> = mutableTicker
+    private var jobList: MutableList<Job?> = mutableListOf(null,null)
+    private val mutableTickerList: List<MutableStateFlow<String>> = arrayListOf(MutableStateFlow(""), MutableStateFlow(""))
+    val tickerList: List<StateFlow<String>> = mutableTickerList
 
-    fun start() {
-        if (job == null) startJob()
-        stopWatchStateHolder.start()
+    fun start(timerIndex: Int) {
+        if (jobList[timerIndex] == null) startJob(timerIndex)
+        stopWatchStateHolderList[timerIndex].start()
     }
 
-    private fun startJob() {
+    private fun startJob(timerIndex: Int) {
         scope.launch {
             while (isActive) {
-                mutableTicker.value = stopWatchStateHolder.getStringTimeRepresentation()
+                mutableTickerList[timerIndex].value = stopWatchStateHolderList[timerIndex].getStringTimeRepresentation()
                 delay(20)
             }
         }
     }
 
-    fun pause() {
-        stopWatchStateHolder.pause()
-        stopJob()
+    fun pause(timerIndex: Int) {
+        stopWatchStateHolderList[timerIndex].pause()
+        stopJob(timerIndex)
     }
 
-    fun stop() {
-        stopWatchStateHolder.stop()
-        stopJob()
-        clearValue()
+    fun stop(timerIndex: Int) {
+        stopWatchStateHolderList[timerIndex].stop()
+        stopJob(timerIndex)
+        clearValue(timerIndex)
     }
 
-    private fun stopJob() {
-        scope.coroutineContext.cancelChildren()
-        job = null
+    private fun stopJob(timerIndex: Int) {
+        jobList[timerIndex] = null
     }
 
-    private fun clearValue() {
-        mutableTicker.value = "00:00:000"
+    private fun clearValue(timerIndex: Int) {
+        mutableTickerList[timerIndex].value = "00:00:000"
     }
-
 }

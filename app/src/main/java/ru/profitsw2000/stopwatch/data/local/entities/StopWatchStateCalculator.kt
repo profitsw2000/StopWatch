@@ -1,10 +1,10 @@
 package ru.profitsw2000.stopwatch.data.local.entities
 
 import ru.profitsw2000.stopwatch.data.StopWatchState
-import ru.profitsw2000.stopwatch.data.local.DataSourceLocal
+import ru.profitsw2000.stopwatch.data.TimestampProviderImpl
 
 class StopWatchStateCalculator (
-    private val timeSourceLocal: DataSourceLocal,
+    private val timestampProviderImpl: TimestampProviderImpl,
     private val elapsedTimeCalculator: ElapsedTimeCalculator
 ) {
     fun calculateRunningState(oldState: StopWatchState): StopWatchState.Running =
@@ -12,7 +12,7 @@ class StopWatchStateCalculator (
             is StopWatchState.Running -> oldState
             is StopWatchState.Paused -> {
                 StopWatchState.Running(
-                    startTime = timeSourceLocal.getMillisecondsTime(),
+                    startTime = timestampProviderImpl.getMilliseconds(),
                     elapsedTime = oldState.elapsedTime
                 )
             }

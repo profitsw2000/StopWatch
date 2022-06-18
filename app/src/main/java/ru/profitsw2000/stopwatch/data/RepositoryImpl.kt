@@ -14,12 +14,21 @@ import ru.profitsw2000.stopwatch.utils.TimestampMillisecondsFormatter
 
 class RepositoryImpl(dataSourceLocal: DataSourceLocal) : Repository {
 
-    private val timeSource = dataSourceLocal
-    private val timestampMillisecondsFormatter = TimestampMillisecondsFormatter()
-    private val elapsedTimeCalculator = ElapsedTimeCalculator(timeSource)
-    private val stopWatchStateCalculator = StopWatchStateCalculator(timeSource, elapsedTimeCalculator)
-    private val stopWatchStateHolder = StopWatchStateHolder(stopWatchStateCalculator, elapsedTimeCalculator, timestampMillisecondsFormatter)
     private val coroutineScope = CoroutineScope(Dispatchers.Main + SupervisorJob())
+/*    private val elapsedTimeCalculator = ElapsedTimeCalculator(dataSourceLocal)
+    private val timestampMillisecondsFormatter = TimestampMillisecondsFormatter()
+    private val stopWatchStateCalculator = StopWatchStateCalculator(dataSourceLocal, elapsedTimeCalculator)
 
-    override val stopWatchListOrchestrator: StopWatchListOrchestrator = StopWatchListOrchestrator(stopWatchStateHolder, coroutineScope)
+    private val stopWatchStateHolder1 = StopWatchStateHolder(
+                                            stopWatchStateCalculator,
+                                            elapsedTimeCalculator,
+                                            timestampMillisecondsFormatter)
+
+    private val stopWatchStateHolder2 = StopWatchStateHolder(
+        stopWatchStateCalculator,
+        elapsedTimeCalculator,
+        timestampMillisecondsFormatter)*/
+
+    override val stopWatchListOrchestrator: StopWatchListOrchestrator = StopWatchListOrchestrator(
+        dataSourceLocal.stopWatchStateHolderList, coroutineScope)
 }
